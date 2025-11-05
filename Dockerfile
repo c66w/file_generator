@@ -12,14 +12,11 @@ RUN mkdir -p /root/.pip && \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install system dependencies required by Playwright browsers.
-RUN playwright install-deps
-
-COPY . .
-
 # Ensure Chromium browser binaries are available inside the container.
 ENV PLAYWRIGHT_DOWNLOAD_HOST=https://npmmirror.com/mirrors/playwright
 RUN python -m playwright install --with-deps chromium
+
+COPY . .
 
 EXPOSE 6424
 
