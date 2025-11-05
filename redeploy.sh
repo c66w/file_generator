@@ -13,6 +13,6 @@ if docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}\$"; then
 fi
 
 echo "Starting container ${CONTAINER_NAME}..."
-docker run -d --name "${CONTAINER_NAME}" -p 8000:8000 "${IMAGE_NAME}"
+docker run -d --name "${CONTAINER_NAME}" -p 6424:6424 "${IMAGE_NAME}"
 
 echo "Redeploy complete."

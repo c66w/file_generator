@@ -25,6 +25,6 @@ COPY . .
 ENV PLAYWRIGHT_DOWNLOAD_HOST=https://npmmirror.com/mirrors/playwright
 RUN python -m playwright install --with-deps chromium
 
-EXPOSE 8000
+EXPOSE 6424
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "6424"]
