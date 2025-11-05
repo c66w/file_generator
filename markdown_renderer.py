@@ -66,7 +66,7 @@ def _markdown_to_html_simple(markdown: str) -> str:
     return "\n".join(html_parts)
 
 
-async def render_markdown_to_pdf(markdown: str) -> bytes:
+async def render_markdown_to_pdf(markdown_text: str) -> bytes:
     """
     Render Markdown as a PDF, using python-markdown when available and
     falling back to a simple parser when not.
@@ -75,9 +75,9 @@ async def render_markdown_to_pdf(markdown: str) -> bytes:
         import markdown  # type: ignore
 
         md = markdown.Markdown(extensions=["tables", "fenced_code"])
-        html_content = md.convert(markdown)
+        html_content = md.convert(markdown_text)
     except ImportError:
-        html_content = _markdown_to_html_simple(markdown)
+        html_content = _markdown_to_html_simple(markdown_text)
 
     html_document = f"""<!DOCTYPE html>
 <html>

@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import logging
+
 from fastapi import FastAPI, HTTPException, Response
 from pydantic import BaseModel, Field
 
 from markdown_renderer import render_markdown_to_pdf
 
+logger = logging.getLogger("markdown_pdf_service")
 app = FastAPI(title="Markdown PDF Renderer")
 
 
@@ -29,6 +32,7 @@ async def render_pdf(body: MarkdownRequest) -> Response:
     try:
         pdf_bytes = await render_markdown_to_pdf(body.markdown)
     except Exception as exc:  # pragma: no cover - defensive path
+        logger.exception("Failed to render Markdown to PDF")
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
     headers = {"Content-Disposition": 'inline; filename="document.pdf"'}
